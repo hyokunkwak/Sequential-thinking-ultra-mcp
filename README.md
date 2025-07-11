@@ -111,7 +111,6 @@ Add to your `claude_desktop_config.json`:
         "ENABLE_QUERY_REWRITING": "true",
         "DEFAULT_BUDGET_MODE": "balanced",
         "META_CHECKPOINT_FREQ": "25",
-        "MAX_PARALLEL_PATHS": "4",
         "QUALITY_THRESHOLD": "0.6"
       }
     }
@@ -139,7 +138,6 @@ Add to your `claude_desktop_config.json`:
         "ENABLE_QUERY_REWRITING": "true",
         "DEFAULT_BUDGET_MODE": "balanced",
         "META_CHECKPOINT_FREQ": "25",
-        "MAX_PARALLEL_PATHS": "4",
         "QUALITY_THRESHOLD": "0.6"
       }
     }
@@ -158,7 +156,6 @@ Add to your `claude_desktop_config.json`:
 | `DEFAULT_BUDGET_MODE` | Default efficiency mode (fast/balanced/thorough/exhaustive) | `balanced` |
 | `ENABLE_QUERY_REWRITING` | Enable automatic query rewriting | `true` |
 | `META_CHECKPOINT_FREQ` | Meta checkpoint frequency (%) | `25` |
-| `MAX_PARALLEL_PATHS` | Maximum number of branch paths to track | `4` |
 | `QUALITY_THRESHOLD` | Minimum quality threshold (0-1) | `0.6` |
 | `LOG_LEVEL` | Logging level (error/warn/info/debug) | `info` |
 | `DEBUG_MODE` | Enable debug output | `false` |

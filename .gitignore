@@ -1,0 +1,85 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build output
+dist/
+build/
+*.tsbuildinfo
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+server.log
+server-*.log
+test-*.log
+final-test.log
+
+# Temporary files
+tmp/
+temp/
+
+# Docker
+# .dockerignore (keeping in repo for Docker builds)
+
+# Backup folder - exclude from git
+backup/
+
+# Documentation build
+docs/api/
+
+# Benchmarks
+benchmark-results.json
+
+# TypeDoc
+.typedoc-cache/
+
+# Test scripts and reports
+test-client.js
+stress-test.js
+quick-test.js
+*.results.log
+TEST_REPORT.md
+FINAL_STATUS.md
+ROADMAP.md
+USAGE.md
+
+# Development and optional files (for minimal repo)
+.github/
+k8s/
+benchmarks/
+config/
+scripts/
+tests/
+typedoc.json
+CONTRIBUTING.md
+CHANGELOG.md
+.eslintrc.cjs
+jest.config.cjs
+test-setup.ts
+tsconfig.prod.json
+.npmignore
+.dockerignore
+docker-compose.yml

@@ -26,7 +26,7 @@ Sequential Thinking Ultra is a Model Context Protocol (MCP) server that enhances
 - **🎯 Meta-Reasoning**: Automatic checkpoint evaluations at 25%, 50%, 75% progress
 - **🛡️ Bias Detection**: Identifies 5 cognitive biases (confirmation, anchoring, availability, overconfidence, sunk cost)
 - **📈 Confidence Tracking**: Monitor certainty levels throughout the reasoning process
-- **🔧 Processing Mode Labels**: Support for serial, parallel, and hybrid mode labels (visual indicators)
+- **🔧 Processing Mode Labels**: Visual indicators for different reasoning styles (serial, parallel, hybrid)
 
 ## 📦 Installation
 
@@ -158,7 +158,7 @@ Add to your `claude_desktop_config.json`:
 | `DEFAULT_BUDGET_MODE` | Default efficiency mode (fast/balanced/thorough/exhaustive) | `balanced` |
 | `ENABLE_QUERY_REWRITING` | Enable automatic query rewriting | `true` |
 | `META_CHECKPOINT_FREQ` | Meta checkpoint frequency (%) | `25` |
-| `MAX_PARALLEL_PATHS` | Maximum parallel processing paths | `4` |
+| `MAX_PARALLEL_PATHS` | Maximum number of branch paths to track | `4` |
 | `QUALITY_THRESHOLD` | Minimum quality threshold (0-1) | `0.6` |
 | `LOG_LEVEL` | Logging level (error/warn/info/debug) | `info` |
 | `DEBUG_MODE` | Enable debug output | `false` |
@@ -396,12 +396,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📋 MCP Server Details
 
 ### Tool Description
-**sequential-thinking-ultra** - A powerful tool for dynamic problem-solving through Ultra Think enhanced sequential thinking. This tool combines traditional sequential thinking with advanced features like quality metrics, parallel exploration, meta-reasoning, and budget management for superior problem-solving.
+**sequential-thinking-ultra** - A powerful tool for dynamic problem-solving through Ultra Think enhanced sequential thinking. This tool combines traditional sequential thinking with advanced features like quality metrics, branching support, meta-reasoning, and budget management for superior problem-solving.
 
 ### When to use this tool:
 - Breaking down complex problems with quality assurance at each step
 - Planning and design with built-in meta-reasoning checkpoints
-- Analysis requiring parallel exploration of multiple solutions
+- Analysis requiring exploration of multiple solution approaches
 - Problems needing bias detection and confidence tracking
 - Tasks requiring budget-aware efficient thinking
 - Situations where solution quality must be measured and validated
@@ -413,7 +413,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Sequential Processing**: Step-by-step approach with quality tracking
 - **Quality Metrics**: Real-time assessment (consistency, completeness, objectivity, practicality)
 - **Automatic Improvements**: Suggestions for low-quality reasoning
-- **Parallel Exploration**: Simultaneous pursuit of multiple approaches
+- **Branch Tracking**: Support for tracking multiple reasoning branches
 - **Meta-Reasoning**: Automatic checkpoints at 25%, 50%, 75% progress
 - **Budget Management**: Efficiency modes (fast/balanced/thorough/exhaustive)
 - **Bias Detection**: Identifies 5 cognitive biases
@@ -440,12 +440,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 #### Revision & branching:
 - `isRevision`: Whether this revises previous thinking
 - `revisesThought`: Which thought is being reconsidered
-- `branchFromThought`: Branching point for parallel exploration
-- `branchId`: Identifier for parallel paths
+- `branchFromThought`: Starting point for reasoning branches
+- `branchId`: Identifier for different reasoning paths
 - `needsMoreThoughts`: If more analysis needed
 
 #### Ultra Think parameters:
-- `ultraThinkMode`: Processing approach (serial/parallel/hybrid)
+- `ultraThinkMode`: Visual label mode (serial/parallel/hybrid)
 - `depthLevel`: Current analysis depth (1=surface, 2+=deeper)
 - `maxDepth`: Maximum planned depth
 - `budgetMode`: Efficiency mode (fast/balanced/thorough/exhaustive)
@@ -454,8 +454,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - `qualityMetrics`: Rate each dimension 0-5 (consistency, completeness, objectivity, practicality)
 - `metaCheckpoint`: Flag for meta-reasoning evaluation
 - `biasDetected`: Any cognitive biases identified
-- `parallelPaths`: List of exploration paths being pursued
-- `pathConfidence`: Confidence scores for each path
+- `branchHistory`: Track history of different reasoning branches
 - `enableQueryRewriting`: Toggle automatic query improvement (default: true)
 
 ### You should:
@@ -464,9 +463,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 3. Track quality metrics to ensure high-standard reasoning
 4. Detect and correct any cognitive biases in your thinking
 5. Manage your thinking budget efficiently with appropriate mode
-6. Branch into parallel paths for comprehensive exploration
+6. Use branching to explore different reasoning paths
 7. Adjust confidence levels based on evidence and analysis
-8. Use serial mode for depth, parallel for breadth, hybrid for both
+8. Choose mode labels based on reasoning style needed
 9. Set qualityMetrics scores honestly (0-5) for each dimension
 10. Mark metaCheckpoint=true periodically for self-evaluation
 11. Only set nextThoughtNeeded to false when quality threshold is met

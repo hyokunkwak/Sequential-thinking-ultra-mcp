@@ -51,8 +51,8 @@ docker run --rm -i sequential-thinking-ultra:latest
 
 ```bash
 # Clone the repository
-git clone https://github.com/hyokunkwak/sequential-thinking-ultra.git
-cd sequential-thinking-ultra
+git clone https://github.com/hyokunkwak/Sequential-thinking-ultra-mcp.git
+cd Sequential-thinking-ultra-mcp
 
 # Install dependencies
 npm install
@@ -304,23 +304,15 @@ npm run build
 
 # Run tests
 npm test              # All tests
-npm run test:unit     # Unit tests only
-npm run test:integration # Integration tests
-npm run test:e2e      # End-to-end tests
+npm run test:watch    # Watch mode
+npm run test:coverage # Coverage report
 
 # Code quality
-npm run lint          # ESLint
 npm run typecheck     # TypeScript checking
-npm run format        # Prettier formatting
+npm run check:all     # Run all checks (typecheck + tests)
 
 # Development
-npm run dev           # Development mode with watch
-
-# Documentation
-npm run docs          # Generate TypeDoc documentation
-
-# Performance
-npm run benchmark     # Run performance benchmarks
+npm run dev           # Development mode with tsx
 ```
 
 ### Testing Strategy
@@ -332,11 +324,11 @@ npm run benchmark     # Run performance benchmarks
 
 ## 🐳 Docker Support
 
-### Production Deployment
+### Docker Usage
 
 ```bash
-# Build and run with Docker Compose
-docker-compose up
+# Build Docker image
+docker build -t sequential-thinking-ultra:latest .
 
 # Run with custom environment
 docker run --rm -i \

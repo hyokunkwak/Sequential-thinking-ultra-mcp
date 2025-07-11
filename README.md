@@ -20,14 +20,13 @@ Sequential Thinking Ultra is a Model Context Protocol (MCP) server that enhances
 - **✨ Query Rewriting**: Automatically improve query clarity and structure for better reasoning
 
 #### Ultra Think Enhancements
-- **🔄 Processing Modes**: Serial, Parallel, or Hybrid reasoning approaches
 - **🏷️ Automatic Labeling**: Clear categorization of each thinking step
 - **📊 Quality Metrics**: Real-time assessment (consistency, completeness, objectivity, practicality)
 - **💰 Budget Management**: Resource-efficient processing with configurable limits
 - **🎯 Meta-Reasoning**: Automatic checkpoint evaluations at 25%, 50%, 75% progress
 - **🛡️ Bias Detection**: Identifies 5 cognitive biases (confirmation, anchoring, availability, overconfidence, sunk cost)
 - **📈 Confidence Tracking**: Monitor certainty levels throughout the reasoning process
-- **🔀 Parallel Exploration**: Investigate multiple solution paths simultaneously
+- **🔧 Processing Mode Labels**: Support for serial, parallel, and hybrid mode labels (visual indicators)
 
 ## 📦 Installation
 
@@ -187,8 +186,7 @@ Add to your `claude_desktop_config.json`:
   "thoughtNumber": 3,
   "totalThoughts": 10,
   "nextThoughtNeeded": true,
-  "ultraThinkMode": "parallel",
-  "parallelPaths": ["approach1", "approach2", "approach3"],
+  "ultraThinkMode": "parallel",  // Adds [Parallel: Path] label
   "qualityMetrics": {
     "logicalConsistency": 4,
     "completeness": 3,
@@ -196,7 +194,9 @@ Add to your `claude_desktop_config.json`:
     "practicality": 4
   },
   "budgetMode": "thorough",
-  "confidence": 0.85
+  "confidence": 0.85,
+  "branchId": "approach-1",  // For tracking different reasoning branches
+  "isRevision": false
 }
 ```
 
@@ -253,25 +253,26 @@ src/
 - **Plugin System**: Extensible functionality
 - **Multi-Level Caching**: Performance optimization
 
-## 📊 Processing Modes
+## 📊 Processing Mode Labels
 
-### Serial Mode
-Best for problems requiring deep, focused analysis:
-- Step-by-step exploration
-- Depth-level tracking
-- Thorough investigation of each path
+The system supports three processing mode labels that provide visual indicators for the type of reasoning approach:
 
-### Parallel Mode
-Ideal for exploring multiple solutions simultaneously:
-- Concurrent path exploration
-- Confidence tracking per path
-- Efficient breadth-first analysis
+### Serial Mode Label
+- Shows `[Serial: Depth N]` prefix in thoughts
+- Indicates focused, step-by-step analysis
+- Best for deep, thorough exploration
 
-### Hybrid Mode
-Combines serial depth with parallel breadth:
-- Initial parallel exploration
-- Deep serial analysis of promising paths
-- Balanced resource utilization
+### Parallel Mode Label  
+- Shows `[Parallel: Path]` prefix in thoughts
+- Indicates exploration of multiple approaches
+- Receives slight quality score bonus
+
+### Hybrid Mode Label
+- Shows progressive labels: `[Hybrid: Exploring]`, `[Hybrid: Deepening]`, `[Hybrid: Synthesizing]`
+- Indicates combined approach based on progress
+- Adapts label based on completion percentage
+
+**Note**: These are visual labels that help track reasoning style. The actual processing is sequential.
 
 ## 🎯 Quality Metrics
 

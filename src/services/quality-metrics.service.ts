@@ -91,10 +91,9 @@ export class QualityMetricsService {
       score = Math.min(0.9, score + progressRatio * 0.2);
     }
 
-    // Parallel exploration bonus
-    if (input.ultraThinkMode === 'parallel' && input.parallelPaths) {
-      const pathBonus = 0.1 * Math.min(input.parallelPaths.length / 3, 1);
-      score = Math.min(1.0, score + pathBonus);
+    // Mode bonus (visual label only)
+    if (input.ultraThinkMode === 'parallel') {
+      score = Math.min(1.0, score + 0.1);
     }
 
     // Depth bonus for serial mode
@@ -117,10 +116,9 @@ export class QualityMetricsService {
       score = Math.max(0.5, score - 0.25);
     }
 
-    // Bonus for multiple perspectives
-    if (input.parallelPaths && input.parallelPaths.length > 1) {
-      const perspectiveBonus = Math.min(input.parallelPaths.length * 0.05, 0.2);
-      score = Math.min(0.95, score + perspectiveBonus);
+    // Bonus for branch tracking
+    if (input.branchId) {
+      score = Math.min(0.95, score + 0.1);
     }
 
     // Meta-reasoning improves objectivity

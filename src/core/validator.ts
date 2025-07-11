@@ -115,10 +115,6 @@ export class Validator {
       errors.push('Branch must specify branching point');
     }
 
-    // Check parallel paths limit
-    if (input.parallelPaths && input.parallelPaths.length > 10) {
-      errors.push('Too many parallel paths (maximum 10)');
-    }
 
     return errors;
   }

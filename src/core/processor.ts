@@ -78,7 +78,6 @@ export class UltraThinkProcessor {
       enableQueryRewriting: true,
       defaultBudgetMode: 'balanced',
       metaCheckpointFrequency: META_REASONING.DEFAULT_CHECKPOINT_FREQUENCY,
-      maxParallelPaths: 4,
       qualityThreshold: 0.6,
       debugMode: false,
       ...config
@@ -151,8 +150,7 @@ export class UltraThinkProcessor {
         ))
         .add(new SuggestionStage(
           this.qualityMetrics,
-          this.config.qualityThreshold,
-          this.config.maxParallelPaths
+          this.config.qualityThreshold
         ))
         .add(new ThoughtEnhancementStage(
           this.config.qualityThreshold,

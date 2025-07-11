@@ -82,7 +82,6 @@ export class ProcessorFactory {
       enableQueryRewriting: this.config.enableQueryRewriting ?? true,
       defaultBudgetMode: this.config.defaultBudgetMode ?? 'balanced',
       metaCheckpointFrequency: this.config.metaCheckpointFrequency ?? 25,
-      maxParallelPaths: this.config.maxParallelPaths ?? 4,
       qualityThreshold: this.config.qualityThreshold ?? 0.6,
       debugMode: this.config.debugMode
     };

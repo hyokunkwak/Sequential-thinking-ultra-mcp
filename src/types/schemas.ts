@@ -46,11 +46,6 @@ export const UltraThinkSchema = z.object({
     .describe('Whether this is a meta-reasoning checkpoint'),
   biasDetected: z.string().optional()
     .describe('Detected cognitive bias'),
-  
-  parallelPaths: z.array(z.string().max(100)).max(10).optional()
-    .describe('List of active parallel exploration paths'),
-  pathConfidence: z.record(z.string().max(100), z.number().min(0).max(1)).optional()
-    .describe('Confidence levels for each parallel path')
 });
 
 // Combined schema

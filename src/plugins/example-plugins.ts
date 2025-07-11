@@ -208,13 +208,9 @@ export const MetaReasoningPlugin: Plugin = {
     console.log(`   Depth: ${input.depthLevel || 1}/${input.maxDepth || 'N/A'}`);
     console.log(`   Confidence: ${input.confidence || 'N/A'}`);
     
-    if (input.parallelPaths && input.parallelPaths.length > 0) {
-      console.log(`   Parallel Paths: ${input.parallelPaths.join(', ')}`);
-    }
-    
     // Provide strategic recommendations
     if (progress < 0.5) {
-      console.log('   📋 Recommendation: Continue exploration, consider parallel paths');
+      console.log('   📋 Recommendation: Continue exploration, consider branching');
     } else if (progress < 0.8) {
       console.log('   📋 Recommendation: Begin converging on promising solutions');
     } else {

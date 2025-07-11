@@ -258,8 +258,7 @@ export class BudgetCalculationStage extends BasePipelineStage {
 export class SuggestionStage extends BasePipelineStage {
   constructor(
     private qualityMetrics: IQualityMetricsService,
-    private qualityThreshold: number,
-    private maxParallelPaths: number
+    private qualityThreshold: number
   ) {
     super('suggestion-generation');
   }
@@ -294,9 +293,7 @@ export class SuggestionStage extends BasePipelineStage {
         return `다음 깊이 레벨 (${input.depthLevel + 1}/${input.maxDepth})로 진행`;
       }
     } else if (input.ultraThinkMode === 'parallel') {
-      if (input.parallelPaths && input.parallelPaths.length > this.maxParallelPaths) {
-        return '병렬 경로 수렴 필요 (최대 경로 수 초과)';
-      }
+      return '다양한 접근법을 탐색 중';
     } else if (input.ultraThinkMode === 'hybrid') {
       return this.getHybridModeSuggestion(progress);
     }

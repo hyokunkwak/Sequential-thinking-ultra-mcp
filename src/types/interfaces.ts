@@ -24,8 +24,6 @@ export interface UltraThinkEnhancements {
   qualityMetrics?: QualityMetrics;
   metaCheckpoint?: boolean;
   biasDetected?: string;
-  parallelPaths?: string[];
-  pathConfidence?: Record<string, number>;
   priority?: number;
   enableQueryRewriting?: boolean;
   metadata?: Record<string, any>;
@@ -100,7 +98,6 @@ export interface UltraThinkConfig {
   readonly enableQueryRewriting: boolean;
   readonly defaultBudgetMode: 'fast' | 'balanced' | 'thorough' | 'exhaustive';
   readonly metaCheckpointFrequency: number;
-  readonly maxParallelPaths: number;
   readonly qualityThreshold: number;
   readonly debugMode?: boolean;
 }

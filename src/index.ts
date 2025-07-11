@@ -181,15 +181,6 @@ const ultraThinkTool: Tool = {
       biasDetected: {
         type: 'string',
         description: 'Detected cognitive bias: confirmation, anchoring, availability, overconfidence, sunk_cost'
-      },
-      parallelPaths: {
-        type: 'array',
-        items: { type: 'string' },
-        description: 'List of exploration paths for parallel processing'
-      },
-      pathConfidence: {
-        type: 'object',
-        description: 'Confidence scores for each parallel path'
       }
     },
     required: ['thought', 'thoughtNumber', 'totalThoughts', 'nextThoughtNeeded']

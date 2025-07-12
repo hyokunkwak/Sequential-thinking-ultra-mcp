@@ -79,19 +79,15 @@ Add to your `claude_desktop_config.json`:
         "@modelcontextprotocol/server-sequential-thinking-ultra"
       ],
       "env": {
-        "ULTRA_THINK_AUTO_LABEL": "true",
-        "ULTRA_THINK_QUALITY": "true",
-        "ULTRA_THINK_META": "true",
-        "ULTRA_THINK_BUDGET": "true",
-        "ENABLE_QUERY_REWRITING": "true",
-        "DEFAULT_BUDGET_MODE": "balanced"
+        "NODE_ENV": "production",
+        "DEBUG_MODE": "false"
       }
     }
   }
 }
 ```
 
-#### Docker Installation (Docker Hub)
+#### Docker Installation
 ```json
 {
   "mcpServers": {
@@ -101,44 +97,12 @@ Add to your `claude_desktop_config.json`:
         "run",
         "-i",
         "--rm",
-        "mcp/sequential-thinking-ultra:latest"
+        "sequential-thinking-ultra:latest"
       ],
       "env": {
-        "ULTRA_THINK_AUTO_LABEL": "true",
-        "ULTRA_THINK_QUALITY": "true",
-        "ULTRA_THINK_META": "true",
-        "ULTRA_THINK_BUDGET": "true",
-        "ENABLE_QUERY_REWRITING": "true",
-        "DEFAULT_BUDGET_MODE": "balanced",
-        "META_CHECKPOINT_FREQ": "25",
-        "QUALITY_THRESHOLD": "0.6"
-      }
-    }
-  }
-}
-```
-
-#### Docker Installation (Local Build)
-```json
-{
-  "mcpServers": {
-    "sequential-thinking-ultra": {
-      "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "mcp/sequential-thinking-ultra:latest"
-      ],
-      "env": {
-        "ULTRA_THINK_AUTO_LABEL": "true",
-        "ULTRA_THINK_QUALITY": "true",
-        "ULTRA_THINK_META": "true",
-        "ULTRA_THINK_BUDGET": "true",
-        "ENABLE_QUERY_REWRITING": "true",
-        "DEFAULT_BUDGET_MODE": "balanced",
-        "META_CHECKPOINT_FREQ": "25",
-        "QUALITY_THRESHOLD": "0.6"
+        "NODE_ENV": "production",
+        "DEBUG_MODE": "false",
+        "LOG_LEVEL": "info"
       }
     }
   }
@@ -149,17 +113,11 @@ Add to your `claude_desktop_config.json`:
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `ULTRA_THINK_AUTO_LABEL` | Enable automatic thought labeling | `true` |
-| `ULTRA_THINK_QUALITY` | Enable quality validation | `true` |
-| `ULTRA_THINK_META` | Enable meta-reasoning checkpoints | `true` |
-| `ULTRA_THINK_BUDGET` | Enable budget management | `true` |
-| `DEFAULT_BUDGET_MODE` | Default efficiency mode (fast/balanced/thorough/exhaustive) | `balanced` |
-| `ENABLE_QUERY_REWRITING` | Enable automatic query rewriting | `true` |
-| `META_CHECKPOINT_FREQ` | Meta checkpoint frequency (%) | `25` |
-| `QUALITY_THRESHOLD` | Minimum quality threshold (0-1) | `0.6` |
-| `LOG_LEVEL` | Logging level (error/warn/info/debug) | `info` |
-| `DEBUG_MODE` | Enable debug output | `false` |
 | `NODE_ENV` | Environment (development/production) | `production` |
+| `DEBUG_MODE` | Enable debug output | `false` |
+| `LOG_LEVEL` | Logging level (error/warn/info/debug) | `info` |
+
+> **Note**: The application has built-in defaults for all features. Environment variables are optional and primarily used for deployment configuration.
 
 ## 🛠️ Usage
 
@@ -258,11 +216,6 @@ The system supports three processing mode labels that provide visual indicators 
 - Shows `[Serial: Depth N]` prefix in thoughts
 - Indicates focused, step-by-step analysis
 - Best for deep, thorough exploration
-
-### Parallel Mode Label  
-- Shows `[Parallel: Path]` prefix in thoughts
-- Indicates exploration of multiple approaches
-- Receives slight quality score bonus
 
 ### Hybrid Mode Label
 - Shows progressive labels: `[Hybrid: Exploring]`, `[Hybrid: Deepening]`, `[Hybrid: Synthesizing]`

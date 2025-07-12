@@ -267,10 +267,7 @@ export const EventNames = {
   PLUGIN_LOADED: 'plugin.loaded',
   PLUGIN_ERROR: 'plugin.error',
   
-  // Parallel processing events
-  PARALLEL_PROCESSING_START: 'parallel.start',
-  PARALLEL_PROCESSING_COMPLETE: 'parallel.complete',
-  PARALLEL_TASK_COMPLETED: 'parallel.task.completed',
+  // Worker events
   WORKER_CREATED: 'worker.created',
   WORKER_REMOVED: 'worker.removed',
   

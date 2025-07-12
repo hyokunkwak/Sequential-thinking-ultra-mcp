@@ -2,6 +2,7 @@
 
 Enhanced Sequential Thinking MCP server with Ultra Think methodology for advanced reasoning
 
+> 🔧 **v2.1.2**: Fixed Claude Desktop configuration issues and improved error handling  
 > 🔧 **v2.1.1**: MCP protocol compatibility improvements and Docker optimization  
 > 🚀 **v2.1**: Simplified architecture focused on core MCP server functionality  
 > 📌 **v2.0**: Clean architecture implementation with modular design  
@@ -265,21 +266,34 @@ Automatically identifies and alerts on common cognitive biases:
 
 ### Common Issues
 
-#### "Tool 'sequential-thinking-ultra' not found" Error
+#### "We could not record the tool result" Error
 If you encounter this error in Claude Desktop:
 
-1. **Restart Claude Desktop completely**
+1. **Check your configuration format**
+   - Remove non-standard fields like `"enabled"` and `"alwaysAllow"`
+   - These fields are not part of the MCP specification and can cause issues
+   
+2. **Restart Claude Desktop completely**
    - Quit the application (not just close the window)
+   - Clear cache: `rm -rf ~/Library/Application\ Support/Claude/Cache/*`
    - Start Claude Desktop again
    
-2. **Check Docker container status**
+3. **Verify Docker container is running**
    ```bash
    docker ps --filter ancestor=mcp/sequential-thinking-ultra:latest
    ```
+
+#### "Tool 'sequential-thinking-ultra' not found" Error
+If you encounter this error in Claude Desktop:
+
+1. **Ensure correct configuration format**
+   - Use only standard MCP fields: `command`, `args`, `env`
+   - Do not add `enabled`, `alwaysAllow`, or other custom fields
    
-3. **Verify MCP server configuration**
-   - Ensure the server is enabled in `claude_desktop_config.json`
-   - Check that `"enabled": true` is set
+2. **Check Docker installation**
+   ```bash
+   docker run --rm -i mcp/sequential-thinking-ultra:latest
+   ```
 
 #### "Method not found" Error
 This typically occurs when the MCP server doesn't support certain protocol methods:

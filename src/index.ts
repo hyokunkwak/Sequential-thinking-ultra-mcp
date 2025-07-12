@@ -83,6 +83,30 @@ const server = new Server(
   }
 );
 
+// Add global message interceptor for debugging
+const originalConnect = server.connect.bind(server);
+server.connect = async (transport: any) => {
+  // Log all incoming messages
+  const originalOnMessage = transport.onmessage;
+  if (originalOnMessage) {
+    transport.onmessage = (message: any) => {
+      logger.debug('[MCP] Incoming message:', message);
+      originalOnMessage(message);
+    };
+  }
+  
+  // Log all outgoing messages
+  const originalSend = transport.send;
+  if (originalSend) {
+    transport.send = (message: any) => {
+      logger.debug('[MCP] Outgoing message:', message);
+      return originalSend.call(transport, message);
+    };
+  }
+  
+  return originalConnect(transport);
+};
+
 // Define the Ultra Think tool
 const ultraThinkTool: Tool = {
   name: 'sequential-thinking-ultra',
@@ -214,6 +238,8 @@ server.setRequestHandler(ListResourcesRequestSchema, async () => {
 
 // Handle tool execution
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
+  logger.debug('[MCP Server] Tool call request received:', request);
+  
   if (request.params.name !== 'sequential-thinking-ultra') {
     throw new Error(`Unknown tool: ${request.params.name}`);
   }
@@ -239,26 +265,37 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     
     logger.info('[MCP Server] Processing completed successfully');
     
-    return {
+    // Log the response for debugging
+    const response = {
       content: [
         {
-          type: 'text',
+          type: 'text' as const,
           text: formattedResponse,
         },
       ],
     };
+    
+    logger.debug('[MCP Server] Sending response:', JSON.stringify(response));
+    
+    return response;
   } catch (error) {
     const errorDetails = ErrorHandler.handle(error);
-    logger.error('[MCP Server] Processing failed: ' + errorDetails.message);
+    logger.error('[MCP Server] Processing failed:', error as Error);
+    logger.error('[MCP Server] Error details:', errorDetails);
     
-    return {
+    // Don't throw the error, return it as content
+    const errorResponse = {
       content: [
         {
-          type: 'text',
+          type: 'text' as const,
           text: `Error: ${errorDetails.message || 'Processing failed'}`,
         },
       ],
     };
+    
+    logger.debug('[MCP Server] Sending error response:', JSON.stringify(errorResponse));
+    
+    return errorResponse;
   }
 });
 
@@ -272,12 +309,7 @@ async function startServer() {
     
     const transport = new StdioServerTransport();
     
-    // Add request logging for debugging
-    transport.onmessage = (message) => {
-      if ('method' in message && message.method) {
-        logger.debug(`[MCP] Incoming request: ${message.method}`);
-      }
-    };
+    // Request logging is now handled in the server.connect override above
     
     await server.connect(transport);
     

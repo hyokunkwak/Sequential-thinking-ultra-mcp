@@ -79,8 +79,12 @@ Add to your `claude_desktop_config.json`:
         "@modelcontextprotocol/server-sequential-thinking-ultra"
       ],
       "env": {
-        "NODE_ENV": "production",
-        "DEBUG_MODE": "false"
+        "ULTRA_THINK_AUTO_LABEL": "true",
+        "ULTRA_THINK_QUALITY": "true",
+        "ULTRA_THINK_META": "true",
+        "ULTRA_THINK_BUDGET": "true",
+        "ENABLE_QUERY_REWRITING": "true",
+        "DEFAULT_BUDGET_MODE": "balanced"
       }
     }
   }
@@ -100,9 +104,14 @@ Add to your `claude_desktop_config.json`:
         "sequential-thinking-ultra:latest"
       ],
       "env": {
-        "NODE_ENV": "production",
-        "DEBUG_MODE": "false",
-        "LOG_LEVEL": "info"
+        "ULTRA_THINK_AUTO_LABEL": "true",
+        "ULTRA_THINK_QUALITY": "true",
+        "ULTRA_THINK_META": "true",
+        "ULTRA_THINK_BUDGET": "true",
+        "ENABLE_QUERY_REWRITING": "true",
+        "DEFAULT_BUDGET_MODE": "balanced",
+        "META_CHECKPOINT_FREQ": "25",
+        "QUALITY_THRESHOLD": "0.6"
       }
     }
   }
@@ -113,11 +122,17 @@ Add to your `claude_desktop_config.json`:
 
 | Variable | Description | Default |
 |----------|-------------|---------|
+| `ULTRA_THINK_AUTO_LABEL` | Enable automatic thought labeling | `true` |
+| `ULTRA_THINK_QUALITY` | Enable quality validation | `true` |
+| `ULTRA_THINK_META` | Enable meta-reasoning checkpoints | `true` |
+| `ULTRA_THINK_BUDGET` | Enable budget management | `true` |
+| `ENABLE_QUERY_REWRITING` | Enable automatic query rewriting | `true` |
+| `DEFAULT_BUDGET_MODE` | Default efficiency mode (fast/balanced/thorough/exhaustive) | `balanced` |
+| `META_CHECKPOINT_FREQ` | Meta checkpoint frequency (%) | `25` |
+| `QUALITY_THRESHOLD` | Minimum quality threshold (0-1) | `0.6` |
 | `NODE_ENV` | Environment (development/production) | `production` |
 | `DEBUG_MODE` | Enable debug output | `false` |
 | `LOG_LEVEL` | Logging level (error/warn/info/debug) | `info` |
-
-> **Note**: The application has built-in defaults for all features. Environment variables are optional and primarily used for deployment configuration.
 
 ## 🛠️ Usage
 

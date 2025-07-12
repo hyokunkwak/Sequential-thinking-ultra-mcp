@@ -10,6 +10,8 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import {
   ListToolsRequestSchema,
   CallToolRequestSchema,
+  ListPromptsRequestSchema,
+  ListResourcesRequestSchema,
   Tool,
 } from '@modelcontextprotocol/sdk/types.js';
 
@@ -75,6 +77,8 @@ const server = new Server(
   {
     capabilities: {
       tools: {},
+      prompts: {},
+      resources: {},
     },
   }
 );
@@ -194,6 +198,20 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
   };
 });
 
+// Handle prompts listing
+server.setRequestHandler(ListPromptsRequestSchema, async () => {
+  return {
+    prompts: [],
+  };
+});
+
+// Handle resources listing
+server.setRequestHandler(ListResourcesRequestSchema, async () => {
+  return {
+    resources: [],
+  };
+});
+
 // Handle tool execution
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
   if (request.params.name !== 'sequential-thinking-ultra') {
@@ -253,12 +271,21 @@ async function startServer() {
     await pluginManager.initialize();
     
     const transport = new StdioServerTransport();
+    
+    // Add request logging for debugging
+    transport.onmessage = (message) => {
+      if ('method' in message && message.method) {
+        logger.debug(`[MCP] Incoming request: ${message.method}`);
+      }
+    };
+    
     await server.connect(transport);
     
     logger.info('MCP server started successfully');
     logger.info(`Mode: ${envConfig.defaultBudgetMode || 'balanced'}`);
     logger.info(`Quality validation: ${envConfig.enableQualityValidation ? 'enabled' : 'disabled'}`);
     logger.info(`Meta reasoning: ${envConfig.enableMetaReasoning ? 'enabled' : 'disabled'}`);
+    logger.info('Supported methods: tools/list, prompts/list, resources/list, tools/call');
   } catch (error) {
     logger.error('Failed to start server:', error as Error);
     process.exit(1);
@@ -268,10 +295,12 @@ async function startServer() {
 // Error handlers
 process.on('unhandledRejection', (reason) => {
   logger.error(`Unhandled Rejection: ${reason}`);
+  logger.debug('Stack trace:', reason instanceof Error ? reason.stack : 'N/A');
 });
 
 process.on('uncaughtException', (error) => {
   logger.error('Uncaught Exception', error);
+  logger.debug('Stack trace:', error.stack);
   process.exit(1);
 });
 

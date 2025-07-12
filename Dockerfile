@@ -48,16 +48,12 @@ USER nodejs
 
 # Set environment variables
 ENV NODE_ENV=production \
-    HEALTH_CHECK_PORT=3010 \
     LOG_LEVEL=info \
     DEBUG_MODE=false
 
-# Expose health check port
-EXPOSE 3010
+# Port exposure removed - MCP servers use stdio, not HTTP
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD node -e "require('http').get('http://localhost:3010/health/live', (r) => r.statusCode === 200 ? process.exit(0) : process.exit(1))"
+# Health check removed - MCP servers use stdio, not HTTP
 
 # Use dumb-init to handle signals properly
 ENTRYPOINT ["dumb-init", "--"]

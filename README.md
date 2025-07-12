@@ -2,6 +2,7 @@
 
 Enhanced Sequential Thinking MCP server with Ultra Think methodology for advanced reasoning
 
+> 🔧 **v2.1.1**: MCP protocol compatibility improvements and Docker optimization  
 > 🚀 **v2.1**: Simplified architecture focused on core MCP server functionality  
 > 📌 **v2.0**: Clean architecture implementation with modular design  
 > 🎉 **v1.0**: Initial release with Ultra Think methodology integration
@@ -40,10 +41,10 @@ npm install -g @modelcontextprotocol/server-sequential-thinking-ultra
 
 ```bash
 # Build Docker image
-docker build -t sequential-thinking-ultra:latest .
+docker build -t mcp/sequential-thinking-ultra:latest .
 
 # Run the container
-docker run --rm -i sequential-thinking-ultra:latest
+docker run --rm -i mcp/sequential-thinking-ultra:latest
 ```
 
 ### Development Setup
@@ -101,7 +102,7 @@ Add to your `claude_desktop_config.json`:
         "run",
         "-i",
         "--rm",
-        "sequential-thinking-ultra:latest"
+        "mcp/sequential-thinking-ultra:latest"
       ],
       "env": {
         "ULTRA_THINK_AUTO_LABEL": "true",
@@ -260,6 +261,44 @@ Automatically identifies and alerts on common cognitive biases:
 - **Overconfidence Bias**: Excessive certainty in conclusions
 - **Sunk Cost Fallacy**: Continuing due to past investment
 
+## 🔍 Troubleshooting
+
+### Common Issues
+
+#### "Tool 'sequential-thinking-ultra' not found" Error
+If you encounter this error in Claude Desktop:
+
+1. **Restart Claude Desktop completely**
+   - Quit the application (not just close the window)
+   - Start Claude Desktop again
+   
+2. **Check Docker container status**
+   ```bash
+   docker ps --filter ancestor=mcp/sequential-thinking-ultra:latest
+   ```
+   
+3. **Verify MCP server configuration**
+   - Ensure the server is enabled in `claude_desktop_config.json`
+   - Check that `"enabled": true` is set
+
+#### "Method not found" Error
+This typically occurs when the MCP server doesn't support certain protocol methods:
+
+1. **Update to latest version**
+   ```bash
+   docker pull mcp/sequential-thinking-ultra:latest
+   ```
+   
+2. **Rebuild if using local development**
+   ```bash
+   npm install
+   npm run build
+   docker build -t mcp/sequential-thinking-ultra:latest .
+   ```
+
+#### Docker Container Shows "Unhealthy"
+This is expected behavior as of v2.1.1. The MCP server uses stdio communication, not HTTP, so health checks have been removed.
+
 ## 🧪 Development
 
 ### Commands
@@ -294,13 +333,16 @@ npm run dev           # Development mode with tsx
 
 ```bash
 # Build Docker image
-docker build -t sequential-thinking-ultra:latest .
+docker build -t mcp/sequential-thinking-ultra:latest .
 
 # Run with custom environment
 docker run --rm -i \
   -e DEFAULT_BUDGET_MODE=thorough \
   -e LOG_LEVEL=debug \
-  sequential-thinking-ultra:latest
+  mcp/sequential-thinking-ultra:latest
+
+# Note: As of v2.1.1, Docker health checks have been removed since MCP servers 
+# communicate via stdio, not HTTP. This is expected behavior.
 ```
 
 
